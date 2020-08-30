@@ -41,14 +41,17 @@ public class SpringBootAngularApplication {
     @EventListener(ApplicationReadyEvent.class)
     public void loadData() {
         System.out.println("hello");
-        Category category = new Category("Spożywcze");
-        Category category2 = new Category("Przemysłowe");
-        Product product1 = new Product("ABC", "Bread", "A piece of bread", BigDecimal.valueOf(7.5),"http",true,3,new Date(),new Date(),category);
-        Product product2 = new Product("ABC", "Bread", "A piece of bread", BigDecimal.valueOf(7.5),"http",true,3,new Date(),new Date(),category2);
-        Product product3 = new Product("CDD", "Bread", "A piece of bread", BigDecimal.valueOf(7.5),"http",true,3,new Date(),new Date(),category2);
+        Category category = new Category("BOOKS");
+        Category category2 = new Category("MUGS");
+        Product product1 = new Product("ABC", "Book1", "A piece of bread", BigDecimal.valueOf(7.5),"assets/images/products/books/book-luv2code-1000.png",true,3,new Date(),new Date(),category);
+        Product product2 = new Product("ABC", "Book2", "A piece of bread", BigDecimal.valueOf(7.5),"assets/images/products/books/book-luv2code-1001.png",true,3,new Date(),new Date(),category);
+        Product product3 = new Product("CDD", "Book3", "A piece of bread", BigDecimal.valueOf(7.5),"assets/images/products/books/book-luv2code-1002.png",true,3,new Date(),new Date(),category);
+        Product product4 = new Product("CDD", "Mug1", "A piece of bread", BigDecimal.valueOf(10.5),"assets/images/products/coffeemugs/coffeemug-luv2code-1000.png",true,3,new Date(),new Date(),category2);
+        Product product5 = new Product("CDD", "Mug2", "A piece of bread", BigDecimal.valueOf(12.5),"assets/images/products/coffeemugs/coffeemug-luv2code-1001.png",true,3,new Date(),new Date(),category2);
+        Product product6 = new Product("CDD", "Mug3", "A piece of bread", BigDecimal.valueOf(4.5),"assets/images/products/coffeemugs/coffeemug-luv2code-1002.png",true,3,new Date(),new Date(),category2);
 
 categoryRepo.saveAll(Arrays.asList(category,category2));
-productRepo.saveAll(Arrays.asList(product1,product2,product3));
+productRepo.saveAll(Arrays.asList(product1,product2,product3,product4,product5,product6));
     }
 
 }

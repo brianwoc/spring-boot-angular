@@ -9,9 +9,21 @@ import org.springframework.data.rest.core.mapping.ExposureConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.http.HttpMethod;
 
+import javax.persistence.EntityManager;
+import javax.persistence.metamodel.EntityType;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 
 @Configuration
 public class MyDataRestConfig implements RepositoryRestConfigurer {
+    private EntityManager entityManager;
+
+    @Autowired
+    public MyDataRestConfig(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
@@ -29,6 +41,17 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
                 .forDomainType(Category.class)
                 .withItemExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedActions))
                 .withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(theUnsupportedActions));
+        exposedIds(config);
 
+    }
+
+    private void exposedIds(RepositoryRestConfiguration config) {
+        Set<EntityType<?>> entityManagers = entityManager.getMetamodel().getEntities();
+        List<Class> entityClases = new ArrayList<>();
+        for (EntityType temp:entityManagers) {
+            entityClases.add(temp.getJavaType());
+        }
+        Class[] domainTypes = entityClases.toArray(new  Class[0]);
+        config.exposeIdsFor(domainTypes);
     }
 }
